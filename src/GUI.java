@@ -8,7 +8,8 @@ public class GUI implements ActionListener {
     JButton play, pause,resume,stop;
     ImageIcon icon_play,icon_pause,icon_resume,icon_stop;
     JPanel panel = new JPanel();
-
+    play_song a1=new play_song();
+    Thread play_the_song= new Thread(a1);
 public GUI()
 {
     frame=new JFrame("MY MUSIC PLAYER");
@@ -41,12 +42,15 @@ public GUI()
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == play)
-            frame.getContentPane().setBackground(Color.pink);
+
+            play_the_song.start();
+
+//            frame.getContentPane().setBackground(Color.pink);
         if(e.getSource() == pause)
             frame.getContentPane().setBackground(Color.green);
         if(e.getSource() == resume)
             frame.getContentPane().setBackground(Color.red);
-        if(e.getSource() == stop)
-            frame.getContentPane().setBackground(Color.blue);
+//        if(e.getSource() == stop)
+//            a1.stop_songs();
     }
 }
