@@ -14,19 +14,20 @@ public class play_song implements Runnable {
     Player playMP3;
     long total_length;
     long current_position;
-    boolean ispaused=false,isFileSelected=false;
+    boolean isresumed=false,isFileSelected=false;
     String file_path;
 
     @Override
     public void run() {
         try {
             file = new FileInputStream(file_path);
+            total_length = file.available();
             playMP3 = new Player(file);
             isFileSelected=true;
-                total_length = file.available();
 
-                if (ispaused) {
+                if (isresumed) {
                     file.skip(current_position);
+                    isresumed=false;
                 }
                 playMP3.play();
 
@@ -44,6 +45,10 @@ public class play_song implements Runnable {
     {
         return isFileSelected;
     }
+    public void set_is_resumed()
+    {
+        isresumed=true;
+    }
     public String file_opener(){
         j= new JFileChooser("src/songs");
         int r=j.showOpenDialog(null);
@@ -52,6 +57,7 @@ public class play_song implements Runnable {
             isFileSelected=true;
         }
 //        System.out.println(r);
+
         file_path=  j.getSelectedFile().getAbsolutePath();
         return file_path;
     }
@@ -65,7 +71,7 @@ public class play_song implements Runnable {
     public void pause_song(){
         try {
             current_position=total_length-file.available();
-            ispaused=true;
+//            ispaused=true;
             playMP3.close();
 //            System.out.println(current_position);
         }catch (Exception e) {

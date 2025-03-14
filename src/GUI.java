@@ -74,6 +74,7 @@ public class GUI implements ActionListener {
             a1.pause_song();
         }
         if (e.getSource() == resume) {
+            a1.set_is_resumed();
             if(! a1.is_file_selcted())
             {
                 l.setText("Please select the file");
