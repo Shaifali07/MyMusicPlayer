@@ -22,4 +22,8 @@ java Main
 Click File > Open to select an MP3 file
 Use buttons to control playback
 Demo
-📽️ Watch the demo videos 
+📽️ Watch the demo videos
+1) https://github.com/Shaifali07/MyMusicPlayer/blob/main/MY%20MUSIC%20PLAYER%202025-03-14%2019-31-29.mp4
+2) https://github.com/Shaifali07/MyMusicPlayer/blob/main/MY%20MUSIC%20PLAYER%202025-03-14%2019-32-43.mp4
+
+
