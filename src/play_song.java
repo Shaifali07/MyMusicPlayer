@@ -1,29 +1,59 @@
 import javazoom.jl.player.Player;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
 import java.io.FileInputStream;
 
 public class play_song implements Runnable {
-    long total_length;
-    long current_position;
-    boolean ispaused=false;
+    JFileChooser j;
+
+
+
+//    String file_path="src/songs/Auld Lang Syne (Instrumental) - Jingle Punks.mp3";
     FileInputStream file;
     Player playMP3;
+    long total_length;
+    long current_position;
+    boolean ispaused=false,isFileSelected=false;
+    String file_path;
 
     @Override
     public void run() {
         try {
-            file = new FileInputStream("src/songs/Auld Lang Syne (Instrumental) - Jingle Punks.mp3");
-            if (ispaused)
-            {
-                file.skip(current_position);
-            }
-            total_length=file.available();
+            file = new FileInputStream(file_path);
             playMP3 = new Player(file);
-            playMP3.play();
-        } catch (Exception e) {
+            isFileSelected=true;
+                total_length = file.available();
+
+                if (ispaused) {
+                    file.skip(current_position);
+                }
+                playMP3.play();
+
+
+        } catch (NullPointerException e)
+        {
+            isFileSelected=false;
+        }
+        catch (Exception e) {
             System.out.println(e);
         }
 
+    }
+    public boolean is_file_selcted()
+    {
+        return isFileSelected;
+    }
+    public String file_opener(){
+        j= new JFileChooser("src/songs");
+        int r=j.showOpenDialog(null);
+        if(r==0)
+        {
+            isFileSelected=true;
+        }
+//        System.out.println(r);
+        file_path=  j.getSelectedFile().getAbsolutePath();
+        return file_path;
     }
     public void stop_song(){
         try {
@@ -37,7 +67,7 @@ public class play_song implements Runnable {
             current_position=total_length-file.available();
             ispaused=true;
             playMP3.close();
-            System.out.println(current_position);
+//            System.out.println(current_position);
         }catch (Exception e) {
             System.out.println(e);
         }
